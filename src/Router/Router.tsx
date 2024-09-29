@@ -1,8 +1,8 @@
 import { BrowserRouter, Outlet, Route, Routes} from 'react-router-dom';
-import NavBar from '../Layouts/NavBar';
 import Contact from '../Components/Contact';
 import { AppContextProvider } from '../context/AppContext';
 import MainContent from '../Layouts/MainContent';
+import HomePage from '../Layouts/HomePage';
 
 function Router() {
   return (
@@ -10,7 +10,7 @@ function Router() {
     <AppContextProvider>
     <BrowserRouter>
     <Routes>
-      <Route path='/' Component={NavBar}/>
+      <Route path='/' Component={HomePage}/>
       <Route path = "home" Component={MainContent} />
       <Route path = "contact" Component={Contact} />
     </Routes>

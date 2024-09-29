@@ -1,12 +1,15 @@
 
 import './App.css'
+import { AppContextProvider } from './context/AppContext'
 import Router from './Router/Router'
 
 function App() {
 
   return (
     <>
+    <AppContextProvider>
     <Router />
+    </AppContextProvider>
     </>
   )
 }
