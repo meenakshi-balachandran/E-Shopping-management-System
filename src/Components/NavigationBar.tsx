@@ -1,26 +1,90 @@
-import { Link, Outlet } from 'react-router-dom'
+import React from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-function NavigationBar() {
+const NavBar: React.FC = () => {
+  const location = useLocation(); // Hook to get current route
+  const currentPath = location.pathname; // Get the path (e.g., '/' or '/home')
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    console.log('User logged out');
+  };
+
   return (
     <>
-  <div className=' '>
-        <nav className='bg-gray-700'>
-        <div className="max-w-screen-xl px-4 py-3 mx-auto">
-        <div className="items-center">
-          <ul className=' flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm'>
-              <Link className = "link" to="/home"> E-SHOPPING MART </Link>
-              <Link className = "link" to="/products"> PRODUCTS </Link>
-              <Link className = "link" to="/cart"> CART </Link>
-              <Link className = "link" to="/contact"> CONTACT </Link>
-              </ul>
+      {/* Conditional Rendering based on the route */}
+      {currentPath === '/' && (
+        <nav className="flex justify-between items-center bg-gray-800 text-white p-4">
+          {/* Left: Store Name */}
+          <div className="text-xl font-bold">
+            <Link to="/">My Store</Link>
+          </div>
 
-              </div>
-              </div>
+          {/* Center: Links */}
+          <div className="flex space-x-4">
+            <Link to="/categories" className="hover:text-gray-300">
+              Categories
+            </Link>
+            <Link to="/products" className="hover:text-gray-300">
+              Products
+            </Link>
+            <Link to="/contact" className="hover:text-gray-300">
+              Contact Us
+            </Link>
+          </div>
+
+          {/* Right: Cart Icon */}
+          <div className="flex space-x-4 items-center">
+            <Link to="/cart" className="hover:text-gray-300">
+              <span className="text-lg">🛒</span> {/* Cart Icon */}
+            </Link>
+            <button onClick={() => navigate("/home")} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+              Login
+            </button>
+          </div>
         </nav>
-      </div>
-      <Outlet />
-    </>
-  )
-}
+      )}
 
-export default NavigationBar
+      {currentPath === '/home' && (
+        <nav className="flex justify-between items-center bg-gray-800 text-white p-4">
+          {/* Left: Store Name */}
+          <div className="text-xl font-bold">
+            <Link to="/">My Store - Home</Link>
+          </div>
+
+          {/* Center: Links */}
+          <div className="flex space-x-4">
+            <Link to="/categories" className="hover:text-gray-300">
+              Categories
+            </Link>
+            <Link to="/products" className="hover:text-gray-300">
+              Products
+            </Link>
+            <Link to="/contact" className="hover:text-gray-300">
+              Contact Us
+            </Link>
+          </div>
+
+          {/* Right: Cart Icon and Logout */}
+          <div className="flex space-x-4 items-center">
+            <Link to="/cart" className="relative hover:text-gray-300">
+              <span className="text-lg">🛒</span> {/* Cart Icon */}
+              {/* Example number of items in cart */}
+              <span className="absolute top-0 right-0 text-xs bg-red-600 text-white rounded-full px-1">
+                2
+              </span>
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+            >
+              Logout
+            </button>
+          </div>
+        </nav>
+      )}
+    </>
+  );
+};
+
+export default NavBar;

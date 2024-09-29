@@ -1,22 +1,21 @@
-import { BrowserRouter, Navigate, Outlet, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Outlet, Route, Routes} from 'react-router-dom';
 import NavBar from '../Layouts/NavBar';
-import MainContent from '../Layouts/MainContent';
 import Contact from '../Components/Contact';
-import Login from '../Pages/Login';
+import { AppContextProvider } from '../context/AppContext';
+import MainContent from '../Layouts/MainContent';
 
 function Router() {
   return (
     <>
+    <AppContextProvider>
     <BrowserRouter>
     <Routes>
-      <Route path='login' Component={Login}/>
-      <Route index element={<Navigate to="login"/>} />
-      <Route path = "/home" Component={NavBar} >
-      <Route path = "/home" Component={MainContent} />
+      <Route path='/' Component={NavBar}/>
+      <Route path = "home" Component={MainContent} />
       <Route path = "contact" Component={Contact} />
-      </Route>
     </Routes>
     </BrowserRouter>
+    </AppContextProvider>
     < Outlet />
     </>
   )
