@@ -1,11 +1,11 @@
-import Products from "../Components/Products"
+import HomePage from "../Pages/HomePage"
 import NavBar from "./NavBar"
 
 function MainContent() {
   return (
     <>
     <NavBar />
-    <Products />
+    <HomePage />
     </>
   )
 }

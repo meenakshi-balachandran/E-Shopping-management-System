@@ -1,79 +1,74 @@
 import React, { createContext, useState, ReactNode } from 'react';
-import tv from "../assets/appliances.jfif";
-import books from "../assets/books.jfif";
-import clothes from "../assets/clothing.jpg";
-import electronics from "../assets/electronics2.jpg";
+import shortKurti from "../assets/short-kurti.jpg";
+import umbrella from "../assets/umbrella.jpg";
+import jeggins from "../assets/jeggins.jfif";
+import tshirt from "../assets/tshirt.jfif";
 
 
-// Define the product and cart interfaces
 export interface Product {
   id: number;
   name: string;
-  price: string;
+  price: number;
   image: any
-  quantity?: number; // Optionally track quantity for cart items
+  quantity ?: number;
 }
+
+
+export interface CartItem extends Product {
+  quantity: number;
+} 
 
 interface AppContextType {
   products: Product[];
-  cartItems: Product[];
+  cartItems: CartItem[];
   addToCart: (product: Product) => void;
   updateCartItemQuantity: (id: number, quantity: number) => void;
-  isLoggedIn: boolean; // New property
-  login: () => void;
-  logout: () => void;
 }
 
-// Create the context with default values
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-// Sample product data
-const productsData: Product[] = [
-  { id: 1, name: 'TV', price: "Rs 12000", image:tv },
-  { id: 2, name: 'Books', price: "Rs 200", image:books},
-  { id: 3, name: 'Kurti', price: "Rs 500 ", image:clothes },
-  { id: 4, name: 'Laptop', price: "Rs 50000", image:electronics},
-  { id: 5, name: 'T-Shirts', price: "Rs 350", image:clothes},
-  { id: 6, name: 'Books', price: "Rs 200", image:books},
-  { id: 7, name: 'Kurti', price: "Rs 500 ", image:clothes },
-];
 
-// Provider component
+
+
 export const AppContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [cartItems, setCartItems] = useState<Product[]>([]); // State to track items in the cart
-  const [products] = useState<Product[]>(productsData); // Initial product data
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const login = () => setIsLoggedIn(true);
-  const logout = () => setIsLoggedIn(false);
+  const [productsData] =  useState<Product[]> ( [
+    { id: 1, name: 'Short Kurti', price: 250, image:shortKurti },
+    { id: 2, name: 'Umbrella tops', price: 400, image:umbrella},
+    { id: 3, name: 'Jeggins', price: 710, image:jeggins },
+    { id: 4, name: 'Leggins', price: 300, image:jeggins},
+    { id: 5, name: 'T-Shirt', price: 350, image:tshirt},
+    { id: 6, name: 'Ethnic wear', price: 1000, image:umbrella},
+    { id: 7, name: 'Silk Saree', price: 850 , image:shortKurti },
+  ]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [products] = useState<Product[]>(productsData);
 
-  // Add a product to the cart
   const addToCart = (product: Product) => {
-    setCartItems((prevItems) => {
-      const itemExists = prevItems.find((item) => item.id === product.id);
-      if (itemExists) {
-        return prevItems; // If the product already exists, do nothing
-      }
-      return [...prevItems, { ...product, quantity: 1 }]; // Add product with quantity 1
-    });
+    const existingCartItem = cartItems.find(item => item.id === product.id);
+    if (existingCartItem) {
+      setCartItems(cartItems.map(item =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      ));
+    } else {
+      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+    }
   };
 
-  // Update the quantity of a product in the cart
   const updateCartItemQuantity = (id: number, quantity: number) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity } : item
-      )
-    );
+    quantity = quantity - 1;
+    setCartItems(cartItems.map(item =>
+      item.id === id ? { ...item, quantity } : item
+    ));
   };
+
 
   const appContextValue: AppContextType = {
     products,
     cartItems,
     addToCart,
     updateCartItemQuantity,
-    isLoggedIn,
-    login : () => setIsLoggedIn(true),
-    logout : () => setIsLoggedIn(false)
   };
 
 

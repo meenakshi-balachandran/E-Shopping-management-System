@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
-const categories = ['Electronics', 'Clothing', 'Home Appliances', 'Books', 'Toys'];
+const categories = ['Kurtis', 'Leggins', 'Anarkalis', 'Weatern Tops', 'Cor-set'];
 
 const NavBar: React.FC = () => {
   const location = useLocation();
@@ -19,14 +19,13 @@ const NavBar: React.FC = () => {
   return (
     <>
       {currentPath === '/' && (
-        <nav className="flex justify-between items-center bg-gray-800 text-white p-4">
+        <nav className="flex justify-between items-center text-red p-4">
           <div className="text-xl font-bold">
-            <Link to="/">E-Shopping Mart</Link>
+            <Link to="/">Ms & Mrs Fashion</Link>
           </div>
-
           <div className="flex space-x-4">
             <div className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-              <Link to={"/categories"} className="hover:text-gray-300">Categories</Link >
+              <Link to={"/categories"} className="hover:text-red-300">Categories</Link >
               {dropdownOpen && (
                 <ul className="absolute left-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-lg">
                   {categories.map((category, index) => (
@@ -37,10 +36,10 @@ const NavBar: React.FC = () => {
                 </ul>
               )}
             </div>
-            <Link to="/products" className="hover:text-gray-300">
+            <Link to="/products" className="hover:text-red-300">
               Products
             </Link>
-            <Link to="/contact" className="hover:text-gray-300">
+            <Link to="/contact" className="hover:text-red-300">
               Contact Us
             </Link>
           </div>
@@ -55,7 +54,7 @@ const NavBar: React.FC = () => {
       {currentPath === '/home' && (
         <nav className="flex justify-between items-center bg-gray-800 text-white p-4">
           <div className="text-xl font-bold">
-            <Link to="/">E-SHOPPING MART</Link>
+            <Link to="/">Ms & Mrs Fashion</Link>
           </div>
           <div className="flex space-x-4">
           <div className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
