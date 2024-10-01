@@ -1,26 +1,30 @@
-import { BrowserRouter, Outlet, Route, Routes} from 'react-router-dom';
-import Contact from '../Components/Contact';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Contact from '../components/Contact';
 import { AppContextProvider } from '../context/AppContext';
-import MainContent from '../Layouts/MainContent';
-import HomePage from '../Layouts/HomePage';
-import Products from '../Components/Products';
-import Cart from '../Components/Cart';
+import MainContent from '../layouts/MainContent';
+import HomePage from '../layouts/HomePage';
+import Products from '../pages/Products';
+import Cart from '../pages/Cart';
+import Categories from '../pages/Categories';
+import ProductDetail from '../pages/ProductDetail';
 
 function Router() {
   return (
     <>
-    <AppContextProvider>
-    <BrowserRouter>
-    <Routes>
-      <Route path='/' Component={HomePage}/>
-      <Route path = "home" Component={MainContent} />
-      <Route path = "/contact" Component={Contact} />
-      <Route path='/products' Component={Products} />
-      <Route path='/cart' Component={Cart} />
-    </Routes>
-    </BrowserRouter>
-    </AppContextProvider>
-    < Outlet />
+      <AppContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/home' Component={HomePage} />
+            <Route index element={<Navigate to={'/home'} />} />
+            <Route path="dashboard" Component={MainContent} />
+            <Route path="contact" Component={Contact} />
+            <Route path='products' Component={Products} />
+            <Route path='products/:productId' Component={ProductDetail} />
+            <Route path='categories' Component={Categories} />
+            <Route path='cart' Component={Cart} />
+          </Routes>
+        </BrowserRouter>
+      </AppContextProvider>
     </>
   )
 }

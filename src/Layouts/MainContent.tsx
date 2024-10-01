@@ -1,4 +1,5 @@
-import Products from "../Components/Products"
+import { Outlet } from "react-router-dom"
+import Products from "../pages/Products"
 import NavBar from "./NavBar"
 
 function MainContent() {
@@ -6,6 +7,7 @@ function MainContent() {
     <>
     <NavBar />
     <Products />
+    <Outlet />
     </>
   )
 }

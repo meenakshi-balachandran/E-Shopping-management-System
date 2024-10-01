@@ -2,7 +2,9 @@ import sale from '../assets/sale.jpg'
 
 function HomePage() {
   return (
-    <img src= {sale}></img>
+    <>
+    <marquee>Please Login to see and Add your favourite items into your cart and grab the Offers!!!</marquee>
+    <img src={sale}></img></>
   )
 }
 

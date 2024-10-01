@@ -1,7 +1,7 @@
 
 import './App.css'
 import { AppContextProvider } from './context/AppContext'
-import Router from './Router/Router'
+import Router from './router/Router'
 
 function App() {
 
