@@ -1,14 +1,15 @@
-
+import '../assets/scss/Button.scss'
 interface ButtonType  {
-  className : string,
+  className? : string,
   onClick ?:  () => void,
-  name: string
+  name: string;
+  varient?: 'PRIMARY' | 'SECONDARY';
 }
-function Button({className="", onClick, name=""} : ButtonType){
+function Button({className='', onClick, name='', varient='PRIMARY'} : ButtonType){
 
   return (
     <>
-    <button className={className} onClick={onClick}>{name}</button>
+    <button className={`${className} ${varient}`} onClick={onClick}>{name}</button>
     </>
   )
 }

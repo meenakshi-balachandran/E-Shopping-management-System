@@ -1,0 +1,16 @@
+.PRIMARY {
+  border-radius: 8px;
+  border: 1px;
+  padding: 0.6rem 1.2rem;
+  margin-bottom: 1rem;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #098af5;
+  cursor: pointer;
+  transition: border-color 0.25s;
+
+}
+.PRIMARY:hover {
+  background-color: yellow;
+}

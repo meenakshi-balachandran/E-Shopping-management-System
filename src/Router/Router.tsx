@@ -7,6 +7,7 @@ import Products from '../pages/Products';
 import Cart from '../pages/Cart';
 import Categories from '../pages/Categories';
 import ProductDetail from '../pages/ProductDetail';
+import Login from '../pages/Login';
 
 function Router() {
   return (
@@ -17,6 +18,8 @@ function Router() {
             <Route path='/home' Component={HomePage} />
             <Route index element={<Navigate to={'/home'} />} />
             <Route path="dashboard" Component={MainContent} />
+            <Route path="dashboard/:productId" Component={ProductDetail} />
+            <Route path='login' Component={Login}/>
             <Route path="contact" Component={Contact} />
             <Route path='products' Component={Products} />
             <Route path='products/:productId' Component={ProductDetail} />
