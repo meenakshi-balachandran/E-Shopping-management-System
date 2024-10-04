@@ -8,25 +8,31 @@ import Cart from '../pages/Cart';
 import Categories from '../pages/Categories';
 import ProductDetail from '../pages/ProductDetail';
 import Login from '../pages/Login';
+import { AuthProvider } from '../context/AuthContext';
+import PrivateRouter from '../context/PrivateRouter';
 
 function Router() {
   return (
     <>
       <AppContextProvider>
+        <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path='/home' Component={HomePage} />
             <Route index element={<Navigate to={'/home'} />} />
+            <Route path='login' Component={Login}/>
+            <Route element={<PrivateRouter />}>
             <Route path="dashboard" Component={MainContent} />
             <Route path="dashboard/:productId" Component={ProductDetail} />
-            <Route path='login' Component={Login}/>
             <Route path="contact" Component={Contact} />
             <Route path='products' Component={Products} />
             <Route path='products/:productId' Component={ProductDetail} />
             <Route path='categories' Component={Categories} />
             <Route path='cart' Component={Cart} />
+            </Route>
           </Routes>
         </BrowserRouter>
+        </AuthProvider>
       </AppContextProvider>
     </>
   )

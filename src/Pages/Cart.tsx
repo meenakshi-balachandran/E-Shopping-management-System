@@ -43,15 +43,12 @@ const Cart: React.FC = () => {
       ) : (
         <div>
           <Button
-            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
             onClick={() => navigate("/dashboard")}
             name="Go Back"
           ></Button>
           <TableComponent cartItems = {cartItems}/> 
           <div className=" flex justify-between mt-6">
-            <button className=" bg-blue-400 rounded-r-lg px-4 py-3 text-white">
-              Make Payment
-            </button>
+            <Button name="Make Payment"/>
             <h3 className="text-xl font-semibold">Total: Rs {amount}</h3>
           </div>
         </div>

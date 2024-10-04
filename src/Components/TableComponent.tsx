@@ -58,14 +58,14 @@ function TableComponent({ cartItems }: items) {
                 <div className='flex items-center'>{item.price}</div>
               </td>
               <td className='px-6 py-4'>
-                <Button
-                  className='bg-gray-200 rounded-l-lg px-2 py-1'
+                <Button 
+                  variant='SECONDARY'
                   onClick={() => updateCartQuantity(item.id, item.quantity)}
                   name='-'
                 />
                 <span className='mx-2 text-gray-600'>{item.quantity}</span>
                 <Button
-                  className='bg-gray-200 rounded-r-lg px-2 py-1'
+                  variant='SECONDARY'
                   onClick={() => cart(item)}
                   name='+'
                 />

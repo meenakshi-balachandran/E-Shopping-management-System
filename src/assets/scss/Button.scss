@@ -2,7 +2,8 @@
   border-radius: 8px;
   border: 1px;
   padding: 0.6rem 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
+  margin-top: 0.8rem;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -12,5 +13,13 @@
 
 }
 .PRIMARY:hover {
-  background-color: yellow;
+  background-color: rgb(76, 76, 255);
 }
+
+.SECONDARY {
+  background-color: rgb(194, 189, 189);
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+
+}
+// 'bg-gray-200 rounded-r-lg px-2 py-1'

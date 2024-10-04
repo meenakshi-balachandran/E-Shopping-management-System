@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import AppContext from '../context/AppContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import { ProductType } from '../type/ProductType';
 import CardComponent from '../components/CardComponent';
@@ -16,7 +16,7 @@ const Products = () => {
       <div className="p-8">
         <h1 className="text-3xl text-center font-semibold mb-6">Our Products</h1>
         <div>
-          <Button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded' name='Back' onClick={() => navigate("/dashboard")}></Button>
+          <Button name='Back' onClick={() => navigate("/dashboard")}></Button>
         </div>
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 text-center">
           {appContext.products.map((product: ProductType) => (

@@ -15,9 +15,6 @@ function CardComponent({ product }: cardProps) {
     throw new Error('AppContextProvider is missing');
   }
   const {cartItems,products, addToCart, updateCartQuantity } = appContext;
-  const [selectedProduct, setSelectedProduct] = useState<{
-    [key: number]: Boolean;
-  }>({});
 
   const [cartItem, setCartItem] = useState(
     cartItems.find((element) => element.id === product.id)
@@ -46,7 +43,7 @@ function CardComponent({ product }: cardProps) {
           {cartItem ? (
             <>
               <Button
-                className='bg-gray-200 rounded-l-lg px-2 py-1'
+                variant="SECONDARY"
                 onClick={() =>
                   updateCartQuantity(product.id, product.quantity || 0)
                 }
@@ -54,7 +51,7 @@ function CardComponent({ product }: cardProps) {
               />
               <span className='mx-2 text-black'>{cartItem.quantity}</span>
               <Button
-                className='bg-gray-200 rounded-r-lg px-2 py-1'
+                variant="SECONDARY"
                 onClick={() => addToCart(product)}
                 name='+'
               />

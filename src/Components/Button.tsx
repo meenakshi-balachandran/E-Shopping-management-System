@@ -3,13 +3,13 @@ interface ButtonType  {
   className? : string,
   onClick ?:  () => void,
   name: string;
-  varient?: 'PRIMARY' | 'SECONDARY';
+  variant?: 'PRIMARY' | 'SECONDARY';
 }
-function Button({className='', onClick, name='', varient='PRIMARY'} : ButtonType){
+function Button({className='', onClick, name='', variant='PRIMARY'} : ButtonType){
 
   return (
     <>
-    <button className={`${className} ${varient}`} onClick={onClick}>{name}</button>
+    <button className={`${className} ${variant}`} onClick={onClick}>{name}</button>
     </>
   )
 }

@@ -21,7 +21,7 @@ function ProductDetail() {
   return (
     <>
       <NavBar />
-      <Button onClick={() => navigate("/products")} name="Back" className="mt-10 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded" />
+      <Button onClick={() => navigate("/products")} name="Back" />
       <div className="flex items-start mt-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="md:flex-shrink px-4">
           <div className=" rounded-lg dark:bg-gray-700 mb-4">
@@ -46,7 +46,7 @@ function ProductDetail() {
           </div>
           <div className="flex -mx-2 mb-4">
             <div className="w-1/2 px-2">
-              <Button className="w-1/2 mt-20 bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700" onClick={() => addToCart(getProduct)} name="Add to Cart" />
+              <Button onClick={() => addToCart(getProduct)} name="Add to Cart" />
             </div>
           </div>
         </div>

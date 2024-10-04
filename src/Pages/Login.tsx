@@ -1,30 +1,57 @@
-import { useNavigate } from "react-router-dom"
+// LoginForm.tsx
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
-function Login() {
-  const navigate = useNavigate()
+const LoginForm: React.FC = () => {
+  const auth= useContext(AuthContext);
+  if(!auth) {
+    throw new Error ("Authentication is missing")
+  }
+  const {login} = auth;
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (username === 'Meena' && password === '1234') {
+      login(); 
+      navigate('/dashboard');
+    } else {
+      alert('Invalid credentials');
+    }
+  };
+
   return (
-    <>
-    <form>
-      <div className="mx-auto my-36 flex h-[300px] w-[350px] flex-col border-2 bg-white text-black shadow-xl">
-        <div className="mx-8 mt-7 mb-1 flex flex-row justify-start space-x-2">
-          <div className="h-7 w-3 bg-[#0DE6AC]"></div>
-          <div className="w-3 text-center font-sans text-xl font-bold"><h1>Login</h1></div>
-        </div>
-        <div className="flex flex-col items-center">
-          <input className="my-2 w-72 border p-2" type="email" placeholder="Username" required />
-          <input className="my-2 w-72 border p-2" type="password" placeholder="Password" required/>
-        </div>
-        <div className="my-2 flex justify-center">
-          <button onClick={() => navigate("/dashboard")} className="w-72 border bg-[#0DE6AC] p-2 font-sans">Login</button>
-        </div>
-        <div className="mx-7 my-3 flex justify-between text-sm font-semibold">
-          <div><h1>Forget Password</h1></div>
-          <div><h1 className="underline underline-offset-2">Signup</h1></div>
-        </div>
+    <form onSubmit={handleLogin} className="max-w-md mx-auto mt-10 p-4 border rounded-md shadow-sm">
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
+      <div className="mb-4">
+        <label className="block mb-1">Username</label>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full border p-2 rounded-md"
+          required
+        />
       </div>
-      </form>
-    </>
-  )
-}
+      <div className="mb-4">
+        <label className="block mb-1">Password</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full border p-2 rounded-md"
+          required
+        />
+      </div>
+      <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">
+        Login
+      </button>
+    </form>
+  );
+};
 
-export default Login
+export default LoginForm;
