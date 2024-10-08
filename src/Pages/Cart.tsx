@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import cartEmpty from "../assets/cartEmpty.png";
 import TableComponent from "../components/TableComponent";
+import NavigationBar from "../components/NavigationBar";
+import { DASHBOARD, PAYMENT } from "../utils/constants";
 
-const Cart: React.FC = () => {
+const Cart = () => {
   const appContext = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -13,7 +15,7 @@ const Cart: React.FC = () => {
     return <div>AppContext is undefined</div>;
   }
 
-  const { cartItems} = appContext;
+  const { cartItems, emptyCart } = appContext;
 
   const amount: number = useMemo(() => {
     let total = 0;
@@ -24,6 +26,8 @@ const Cart: React.FC = () => {
   }, [cartItems]);
 
   return (
+    <>
+    <NavigationBar />
     <div className="p-8">
       <h1 className=" items-center text-3xl font-bold mb-6">Shopping Cart</h1>
       {cartItems.length === 0 ? (
@@ -37,23 +41,24 @@ const Cart: React.FC = () => {
           <Button
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
             name="Go For Shopping"
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate(`${DASHBOARD}`)}
           />
         </>
       ) : (
         <div>
           <Button
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate(`${DASHBOARD}`)}
             name="Go Back"
           ></Button>
-          <TableComponent cartItems = {cartItems}/> 
+          <TableComponent cartItems={cartItems} />
           <div className=" flex justify-between mt-6">
-            <Button name="Make Payment"/>
+            <Button onClick={() =>{emptyCart(); navigate(`${PAYMENT}`)}} name="Make Payment" />
             <h3 className="text-xl font-semibold">Total: Rs {amount}</h3>
           </div>
         </div>
       )}
     </div>
+    </>
   );
 };
 

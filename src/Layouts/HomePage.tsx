@@ -1,11 +1,13 @@
+import NavigationBar from "../components/NavigationBar"
 import HomePage from "../pages/HomePage"
-import NavBar from "./NavBar"
 
 function MainContent() {
   return (
     <>
-    <NavBar />
+    <div className="bg-green-100 min-h-screen">
+    <NavigationBar />
     <HomePage />
+    </div>
     </>
   )
 }

@@ -1,13 +1,16 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  /* background-color: #025048; */
+
+  /* padding: 2rem; */
   /* text-align: center; */
 }
 
 .link {
   display: flex;
   flex-direction: column;
+  
   column-gap: 4rem;
-  color: white;
+  /* color: white; */
 }

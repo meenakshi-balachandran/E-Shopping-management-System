@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import AppContext from "../context/AppContext";
 import Button from "../components/Button";
 import NavBar from "../components/NavigationBar";
+import { PRODUCTS } from "../utils/constants";
 
 function ProductDetail() {
   const appContext = useContext(AppContext)
@@ -21,7 +22,7 @@ function ProductDetail() {
   return (
     <>
       <NavBar />
-      <Button onClick={() => navigate("/products")} name="Back" />
+      <Button onClick={() => navigate(`${PRODUCTS}`)} name="Back" />
       <div className="flex items-start mt-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="md:flex-shrink px-4">
           <div className=" rounded-lg dark:bg-gray-700 mb-4">

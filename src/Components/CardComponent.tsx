@@ -12,32 +12,46 @@ function CardComponent({ product }: cardProps) {
   const appContext = useContext(AppContext);
 
   if (!appContext) {
-    throw new Error('AppContextProvider is missing');
+    throw new Error("AppContextProvider is missing");
   }
-  const {cartItems,products, addToCart, updateCartQuantity } = appContext;
+  const { cartItems, products, addToCart, updateCartQuantity } = appContext;
 
   const [cartItem, setCartItem] = useState(
     cartItems.find((element) => element.id === product.id)
   );
+  
   useEffect(() => {
     setCartItem(cartItems.find((element) => element.id === product.id));
-  }, [cartItems,product.id]);
+  }, [cartItems, product.id]);
 
-  if (!products || products.length === 0) {
-    return <p>No products found.</p>;
-  }
+
   const handleAddToCart = (product: ProductType) => {
     addToCart(product);
-    
   };
-
   return (
-    <>
-      <div className='border rounded-lg p-6 bg-gray-100'>
-        <Link to={`${product.id}`}>
-          <img className='h-64 w-96 mb-2' src={product.image}></img>
-          <h3 className='text-xl font-medium'>{product.name}</h3>
-          <p className='text-gray-700'>Price: Rs {product.price}</p>
+
+    <div
+      className="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-64 h-96"
+    >
+      <div className="relative p-2.5 h-96 overflow-hidden rounded-xl bg-clip-border">
+        <img
+          src={product.image}
+          alt="card-image"
+          className="h-full w-full object-contain rounded-md"
+        />
+      </div>
+      <div className="p-4">
+      <Link to={`${product.id}`} className="p-4">
+        <div className="mb-2 flex items-center justify-between">
+          <p className="text-slate-800 text-xl font-semibold">{product.name}</p>
+          <p className="text-cyan-600 text-xl font-semibold">
+            Rs. {product.price}
+          </p>
+        </div>
+        <p className="text-slate-600 leading-normal font-light">
+          {product.category} Lorem ipsum, dolor sit amet consectetur adipisicing
+          elit. Impedit, iusto?
+        </p>
         </Link>
         <div>
           {cartItem ? (
@@ -47,24 +61,24 @@ function CardComponent({ product }: cardProps) {
                 onClick={() =>
                   updateCartQuantity(product.id, product.quantity || 0)
                 }
-                name='-'
+                name="-"
               />
-              <span className='mx-2 text-black'>{cartItem.quantity}</span>
+              <span className="mx-2 text-black">{cartItem.quantity}</span>
               <Button
                 variant="SECONDARY"
                 onClick={() => addToCart(product)}
-                name='+'
+                name="+"
               />
             </>
           ) : (
             <Button
               onClick={() => handleAddToCart(product)}
-              name='Add to Cart'
+              name="Add to Cart"
             />
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -5,9 +5,6 @@ import AuthContext from '../context/AuthContext';
 
 const LoginForm: React.FC = () => {
   const auth= useContext(AuthContext);
-  if(!auth) {
-    throw new Error ("Authentication is missing")
-  }
   const {login} = auth;
 
   const [username, setUsername] = useState('');
@@ -25,7 +22,8 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleLogin} className="max-w-md mx-auto mt-10 p-4 border rounded-md shadow-sm">
+    <div className='flex place-items-center mt-12'>
+    <form onSubmit={handleLogin} className="w-96 mx-auto mt-12 p-4 border rounded-md shadow-lg bg-blue-100">
       <h2 className="text-2xl font-bold mb-4">Login</h2>
       <div className="mb-4">
         <label className="block mb-1">Username</label>
@@ -51,6 +49,7 @@ const LoginForm: React.FC = () => {
         Login
       </button>
     </form>
+    </div>
   );
 };
 

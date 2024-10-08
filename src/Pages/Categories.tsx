@@ -1,10 +1,10 @@
 import CategoryList from "./CategoryList"
-import NavBar from "../components/NavigationBar"
+import NavigationBar from "../components/NavigationBar"
 
 function Categories() {
   return (
     <>
-      <NavBar />
+      <NavigationBar />
       <CategoryList />
     </>
   )

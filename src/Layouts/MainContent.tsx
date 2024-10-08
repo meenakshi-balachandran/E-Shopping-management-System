@@ -1,14 +1,13 @@
+import NavigationBar from "../components/NavigationBar"
 import Products from "../pages/Products"
-import NavBar from "./NavBar"
 
 
 function MainContent() {
   
   return (
     <>
-    <NavBar />
+    <NavigationBar />
     <Products />
-    
     </>
   )
 }
