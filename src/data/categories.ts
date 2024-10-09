@@ -1,1 +1,4 @@
-export const categories = ['Kurtis', 'Leggins', 'Anarkalis', 'Western Tops', 'Corset'];
+// import { Category } from "../context/AppContext";
+
+export const categories = ["Anarkalis","Jeans","Leggins","Sarees"]
+

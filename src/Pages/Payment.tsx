@@ -4,19 +4,14 @@ import { Icons, IconType } from "../components/Icon"
 import NavigationBar from "../components/NavigationBar"
 import { useContext } from "react"
 import AppContext from "../context/AppContext"
+import { CartActionType } from "../enum/CartAction"
 
 const Payment = () => {
   const navigate = useNavigate()
-  const cartContext = useContext(AppContext);
-
-  if (!cartContext) {
-    return <div>AppContext is undefined</div>;
-  }
-  const {emptyCart} = cartContext
-
+  const {dispatch} = useContext(AppContext);
   const handlePayment = () => {
     navigate("/home")
-    emptyCart()
+    dispatch({type:CartActionType.EMPTY_CART})
   }
   return (
     <>

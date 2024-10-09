@@ -5,6 +5,7 @@ import AppContext from "../context/AppContext";
 import Button from "./Button";
 import AuthContext from "../context/AuthContext";
 import { CART, HOME, LOGIN } from "../utils/constants";
+import { AuthorisationType } from "../enum/AuthorisationType";
 
 const CartAndButtons: React.FC = () => {
   const appContext = useContext(AppContext);
@@ -12,14 +13,14 @@ const CartAndButtons: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
-  const { logout } = auth;
+  const { dispatch } = auth;
 
   const cartQuantityNumber = useMemo(
-    () => appContext.cartItems.length,
-    [appContext.cartItems]
+    () => appContext.state.cartItems.length,
+    [appContext.state.cartItems]
   );
   const handleLogout = () => {
-    logout();
+    dispatch({type: AuthorisationType.SIGN_OUT})
     navigate(`${HOME}`);
   };
 

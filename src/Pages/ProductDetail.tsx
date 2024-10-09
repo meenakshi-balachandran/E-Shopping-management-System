@@ -4,20 +4,22 @@ import AppContext from "../context/AppContext";
 import Button from "../components/Button";
 import NavBar from "../components/NavigationBar";
 import { PRODUCTS } from "../utils/constants";
+import { ProductType} from "../type/ProductType";
+import { CartActionType } from "../enum/CartAction";
 
 function ProductDetail() {
   const appContext = useContext(AppContext)
-  if (!appContext) {
-    throw new Error('AppContextProvider is missing');
-  }
-  const { products, addToCart } = appContext
+  const { state, dispatch} = appContext
   const { productId } = useParams();
   const navigate = useNavigate();
 
-  const getProduct = products.find(product => productId === String(product.id))
+  const getProduct = state.products.find(product => productId === String(product.id))
   if(!getProduct) {
     throw new Error("product does not exist")
   }
+   const addToCart = (product: ProductType) => {
+    dispatch({type: CartActionType.ADD_TO_CART, payload:product})
+  };
 
   return (
     <>

@@ -6,3 +6,7 @@ export interface ProductType {
   category: string;
   quantity?: number;
 }
+
+
+
+

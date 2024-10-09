@@ -8,9 +8,6 @@ import { DASHBOARD } from '../utils/constants';
 
 const Products = () => {
   const appContext = useContext(AppContext)
-  if (!appContext) {
-    throw new Error('AppContextProvider is missing');
-  }
   const navigate = useNavigate()
   return (
     <>
@@ -20,7 +17,7 @@ const Products = () => {
           <Button name='Back' onClick={() => navigate(`${DASHBOARD}`)}></Button>
         </div>
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 text-center">
-          {appContext.products.map((product: ProductType) => (
+          {appContext.state.products.map((product: ProductType) => (
             <CardComponent product={product}/>
           ))}
         </ul>

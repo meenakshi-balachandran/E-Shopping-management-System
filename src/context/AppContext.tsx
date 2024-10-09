@@ -1,95 +1,40 @@
-import React, { createContext, useState, ReactNode } from "react";
+import React, { createContext, ReactNode, useReducer } from "react";
 import productLists from "../data/productLists";
 import { ProductType } from "../type/ProductType";
+import { CartAction, cartReducer } from "../reducer/CartReducer";
 
-export interface Category {
-  category: string;
-}
+
 export interface CartItem extends ProductType {
   quantity: number;
 }
 
-interface AppContextType {
-  categories: Category[];
+export interface AppContextType {
   products: ProductType[];
   cartItems: CartItem[];
-  addToCart: (product: ProductType) => void;
-  updateCartQuantity: (id: number, quantity: number) => void;
-  updateCartItemQuantity: (id: number, quantity: number) => number;
-  emptyCart : () => void
 }
 
-const AppContetValue = {
-  categories : {category : "" },
-  products : {id:0,name:"",image:"",price:0,quantity: 0},
-  cartItems : {},
-  addToCart : () => {},
-  updateCartQuantity : () => {},
-  emptyCart : () => {}
+const initialState: AppContextType = {
+  cartItems: [],
+  products: productLists,
+};
+interface CartContextValue {
+  state: AppContextType;
+  dispatch: React.Dispatch<CartAction>;
 }
-const AppContext = createContext<AppContextType |undefined>(undefined);
+
+const data: CartContextValue = {
+  state: initialState,
+  dispatch: () => null,
+};
+
+const AppContext = createContext(data);
 
 export const AppContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const categorieList: Category[] = [
-    { category: "Kurtis" },
-    { category: "Leggins" },
-    { category: "Anarkalis" },
-    { category: "Weatern Tops" },
-    { category: "Coset" },
-  ];
-  const [categories] = useState<Category[]>(categorieList);
-  const [products] = useState<ProductType[]>(productLists);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
-  const addToCart = (product: ProductType) => {
-    const existingCartItem = cartItems.find((item) => item.id === product.id);
-    if (existingCartItem) {
-      setCartItems(
-        cartItems.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
-    }
-  };
-
-  const updateCartQuantity = (id: number) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems
-        .map((item) =>
-          item.id === id && item.quantity >= 1
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-        .filter((item) => item.id !== id || item.quantity >= 1)
-    );
-  };
-  const updateCartItemQuantity = (id: number, quantity: number) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => (item.id === id ? { ...item, quantity } : item))
-    );
-    return quantity;
-  };
-
-  const emptyCart = () => setCartItems([]);
-
-  const appContextValue: AppContextType = {
-    categories,
-    products,
-    cartItems,
-    addToCart,
-    updateCartQuantity,
-    updateCartItemQuantity,
-    emptyCart
-  };
-
+  const [state, dispatch] = useReducer(cartReducer, initialState);
   return (
-    <AppContext.Provider value={appContextValue}>
+    <AppContext.Provider value={{ state, dispatch }}>
       {children}
     </AppContext.Provider>
   );

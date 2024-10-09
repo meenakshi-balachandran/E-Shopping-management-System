@@ -1,29 +1,34 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useReducer, useState } from "react";
+import AuthorisationReducer, { authAction } from "../reducer/AuthorisationReducer";
 
-interface AuthContextType {
+export interface initialAuthState {
   isAuthenticated: Boolean;
-  login: () => void;
-  logout: () => void;
 }
 
-const AuthContextValue =  {
+const AuthContextValue : initialAuthState =  {
   isAuthenticated: false,
-  login: () => {},
-  logout: () => {}
 }
 
 export interface AuthProps {
   children: ReactNode;
 }
 
-const AuthContext = createContext<AuthContextType>(AuthContextValue);
+interface AuthContextType {
+  state : initialAuthState;
+  dispatch : React.Dispatch<authAction>
+}
+
+const AuthData: AuthContextType = {
+  state : AuthContextValue,
+  dispatch : () => null
+}
+
+const AuthContext = createContext(AuthData);
 export const AuthProvider = ({ children }: AuthProps) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const login = () => setIsAuthenticated(true);
-  const logout = () => setIsAuthenticated(false);
+  const [state, dispatch] = useReducer(AuthorisationReducer,AuthContextValue)
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout}}>
+    <AuthContext.Provider value={{ state, dispatch}}>
       {children}
     </AuthContext.Provider>
   );

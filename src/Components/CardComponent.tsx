@@ -3,6 +3,7 @@ import { ProductType } from "../type/ProductType";
 import { useContext, useEffect, useState } from "react";
 import AppContext from "../context/AppContext";
 import Button from "./Button";
+import { CartActionType } from "../enum/CartAction";
 
 interface cardProps {
   product: ProductType;
@@ -11,23 +12,21 @@ interface cardProps {
 function CardComponent({ product }: cardProps) {
   const appContext = useContext(AppContext);
 
-  if (!appContext) {
-    throw new Error("AppContextProvider is missing");
-  }
-  const { cartItems, products, addToCart, updateCartQuantity } = appContext;
+  const {state, dispatch} = appContext;
 
   const [cartItem, setCartItem] = useState(
-    cartItems.find((element) => element.id === product.id)
+    state.cartItems.find((element) => element.id === product.id)
   );
   
   useEffect(() => {
-    setCartItem(cartItems.find((element) => element.id === product.id));
-  }, [cartItems, product.id]);
+    setCartItem(state.cartItems.find((element) => element.id === product.id));
+  }, [state.cartItems, product.id]);
 
 
-  const handleAddToCart = (product: ProductType) => {
-    addToCart(product);
+   const updateCartQuantity = (id: number, quantity:number) => {
+    dispatch({type: CartActionType.UPDATE_CART_QUANTITY, payload:{id,quantity}});
   };
+
   return (
 
     <div
@@ -66,13 +65,14 @@ function CardComponent({ product }: cardProps) {
               <span className="mx-2 text-black">{cartItem.quantity}</span>
               <Button
                 variant="SECONDARY"
-                onClick={() => addToCart(product)}
+                onClick= {() => dispatch({type: CartActionType.ADD_TO_CART, payload:product})
+              }
                 name="+"
               />
             </>
           ) : (
             <Button
-              onClick={() => handleAddToCart(product)}
+            onClick= {() => dispatch({type: CartActionType.ADD_TO_CART, payload:product})}
               name="Add to Cart"
             />
           )}

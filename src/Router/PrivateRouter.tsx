@@ -5,9 +5,9 @@ import { LOGIN } from "../utils/constants";
 
 const PrivateRouter = () => {
   const auth = useContext(AuthContext);
-  const { isAuthenticated } = auth;
+  const { state } = auth;
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={`${LOGIN}`}/>;
+  return state.isAuthenticated ? <Outlet /> : <Navigate to={`${LOGIN}`}/>;
 };
 
 export default PrivateRouter;

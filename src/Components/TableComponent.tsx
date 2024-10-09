@@ -2,25 +2,27 @@ import { useCallback, useContext } from "react";
 import AppContext, { CartItem } from "../context/AppContext";
 import Button from "./Button";
 import { ProductType } from "../type/ProductType";
+import { CartActionType } from "../enum/CartAction";
 
 interface items {
   cartItems: CartItem[];
 }
 
 function TableComponent({ cartItems }: items) {
-  const cartContext = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
 
-  if (!cartContext) {
-    return <div>AppContext is undefined</div>;
-  }
   const cart = useCallback(
     (product: ProductType) => {
-      cartContext.addToCart(product);
+      dispatch({ type: CartActionType.ADD_TO_CART, payload: product });
     },
-    [cartContext.cartItems]
+    [state.cartItems]
   );
-
-  const { updateCartQuantity } = cartContext;
+  const updateCartQuantity = (id: number, quantity: number) => {
+    dispatch({
+      type: CartActionType.UPDATE_CART_QUANTITY,
+      payload: { id, quantity },
+    });
+  };
 
   return (
     <>
@@ -37,7 +39,7 @@ function TableComponent({ cartItems }: items) {
               Product Price
             </th>
             <th scope="col" className="px-6 py-3">
-              Quantiy
+              Quantity
             </th>
           </tr>
         </thead>
